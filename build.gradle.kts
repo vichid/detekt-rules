@@ -1,10 +1,8 @@
 plugins {
-    `maven-publish`
+    id("maven-publish")
+    id("pl.allegro.tech.build.axion-release") version "1.13.2"
     kotlin("jvm") version "1.7.0"
 }
-
-group = "io.github.vichid"
-version = "0.0.1"
 
 java {
     toolchain {
@@ -21,6 +19,15 @@ publishing {
                 username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("GITHUB_TOKEN_PUBLISH")
             }
+        }
+    }
+    publications {
+        register<MavenPublication>("gpr") {
+            groupId = "io.github.vichid"
+            artifactId = "detekt.rules"
+            version = scmVersion.version
+
+            from(components["java"])
         }
     }
 }
