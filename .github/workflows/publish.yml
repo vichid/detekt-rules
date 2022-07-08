@@ -16,10 +16,6 @@ jobs:
       - name: Fetch tags
         run: git fetch --tags --unshallow
       - uses: ./.github/actions/setup
-      - name: Release version
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: :release -Prelease.customUsername=${{ github.actor }} -Prelease.customPassword=${{ github.token }}
       - name: Publish package
         uses: gradle/gradle-build-action@v2
         with:
