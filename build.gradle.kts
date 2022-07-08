@@ -1,6 +1,5 @@
 plugins {
     id("maven-publish")
-    id("pl.allegro.tech.build.axion-release") version "1.13.2"
     kotlin("jvm") version "1.7.0"
 }
 
