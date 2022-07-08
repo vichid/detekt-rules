@@ -1,50 +1,30 @@
 plugins {
     `maven-publish`
+    kotlin("jvm") version "1.7.0"
 }
 
 group = "io.github.vichid"
 version = "0.0.1"
 
-buildscript {
-    dependencies {
-        classpath(libs.gradlePlugins.anvil)
-        classpath(libs.gradlePlugins.detekt)
-        classpath(libs.gradlePlugins.kotlin)
-    }
-
-    repositories {
-        google()
-        maven("https://plugins.gradle.org/m2/")
-        maven("https://maven.pkg.github.com/vichid/playground") {
-            credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN_PUBLISH")
-            }
-        }
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
-apply(plugin = "org.jetbrains.kotlin.jvm")
 
-val implementation by configurations
-
-dependencies {
-    implementation(libs.detekt.api)
-}
-
-configure<PublishingExtension> {
+publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/vichid/playground")
+            url = uri("https://maven.pkg.github.com/vichid/detekt-rules")
             credentials {
                 username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("GITHUB_TOKEN_PUBLISH")
             }
         }
     }
-    publications {
-        register<MavenPublication>("gpr") {
-            from(components["java"])
-        }
-    }
+}
+
+dependencies {
+    implementation(libs.detekt.api)
 }

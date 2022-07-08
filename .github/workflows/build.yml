@@ -1,6 +1,7 @@
 name: 🔨 Build detekt-rules
 on: [push]
-
+env:
+  GITHUB_TOKEN_PUBLISH: ${{ secrets.GITHUB_TOKEN }}
 jobs:
   validate-wrapper:
     name: 🏗 Validate wrapper
@@ -25,6 +26,4 @@ jobs:
       - uses: gradle/gradle-build-action@v2
         with:
           arguments: :assemble
-        env:
-          GITHUB_TOKEN_PUBLISH: ${{ secrets.GITHUB_TOKEN }}
 
