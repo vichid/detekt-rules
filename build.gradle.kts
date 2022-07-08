@@ -25,7 +25,7 @@ publishing {
         register<MavenPublication>("gpr") {
             groupId = "io.github.vichid"
             artifactId = "detekt.rules"
-            version = scmVersion.version
+            version = System.getenv("GITHUB_REF_NAME")
 
             from(components["java"])
         }
